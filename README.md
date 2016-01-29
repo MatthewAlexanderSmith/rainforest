@@ -55,6 +55,8 @@ We use render in a controller when we want to respond within the current request
 ____
 
 January 29th
+See w3d5_jan29_2016.md for more notes
+/Users/Macbook/Desktop/Bitmaker/Lessons/lesson_notes
 
 Tools:
 
@@ -199,3 +201,12 @@ Q: At what point in this process is the session hash created? Where does it live
 * do not need the |f| in this case because we are not iterating over a list!
 
 <%= form_tag sessions_path do %>
+
+9. Adding flash alerts and notices
+
+Flash
+* cleared with each request
+http://guides.rubyonrails.org/action_controller_overview.html#the-flash
+
+redirect_to products_url, notice: "Logged In!"
+* remember to put a comma after products_url!
