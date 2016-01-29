@@ -114,14 +114,15 @@ end
 Q: How does notice: work exactly?
 * some how linked to the flash method? Yes, exactly.
 A: redirect_to(options = {}, response_status_and_flash = {})
-* flash messages when entering information from form after render or redirect_to. You can add anything to the flash message from anywhere in the controller as long as you use a key that the flash method knows about.
-* pass a key that flash knows about in the response_status_and_flash = {} as shown above.
+* Use flash message keys with render or redirect_to. You can add anything to the flash message from anywhere in the controller as long as you use a key that the flash method knows about.
+* key to the response_status_and_flash = {} as shown above.
 
 
 <%= form_for @user do |f| %>
 * use <%= with form_for
 
-
+<% @user.errors.full_messages.each do |message| %>
+* use <% (without equals sign) in this case!
 
 Q: Error message code for Sign up form
 * should I memorize this?
