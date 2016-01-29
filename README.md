@@ -53,3 +53,32 @@ redirect_to VS render
 
 We use render in a controller when we want to respond within the current request, and redirect_to when we want to spawn a new request.
 ____
+
+January 29th
+
+Tools:
+
+HTML Codes for Symbols etc.
+http://www.ascii.cl/htmlcodes.htm
+* Use html ascii codes for cross platform compatibility.
+
+
+6. Displaying price in dollars
+
+http://betterexplained.com/articles/intermediate-rails-understanding-models-views-and-controllers/
+* great MVC diagram.
+* More in depth description of the role of each MRCAV element and what is happening at each step in the request response
+ cycle.
+
+sprintf
+
+sprintf(format_string [, arguments...] ) → string Link
+
+* Returns the string resulting from applying format_string to any additional arguments. Within the format string, any
+characters other than format sequences are copied to the result.
+
+
+
+
+
+

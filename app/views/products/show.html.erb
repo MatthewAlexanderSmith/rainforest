@@ -2,6 +2,6 @@
 <div>
   <p><%= @product.name %></p>
   <p><%= @product.description %></p>
-  <%= @product.price_in_cents %>
+  <%= @product.formatted_price %>
 </div>
 <%= link_to "Back to Products", products_path %> | <%= link_to "Edit Product", edit_product_path(@product) %> | <%= link_to "Delete", @picture, method: :delete, data: {confirm: "Are you sure you want to delete this picture?"}  %>

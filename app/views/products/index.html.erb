@@ -5,7 +5,7 @@
 <ul>
   <% @products.each do |p|%>
 
-      <li><%= link_to p.name, product_path(p.id)%>, <%= p.description %> - <%= p.price_in_cents %></li>
+      <li><%= link_to p.name, product_path(p.id)%> -- <%= p.description %> -- &#36;<%= p.formatted_price %></li>
 
   <% end %>
 </ul>
