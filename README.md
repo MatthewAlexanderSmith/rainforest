@@ -76,9 +76,56 @@ sprintf(format_string [, arguments...] ) → string Link
 
 * Returns the string resulting from applying format_string to any additional arguments. Within the format string, any
 characters other than format sequences are copied to the result.
+* Used in the formatted_price method in the Product model, to for a 2 decimal place return.
+
+
+7. Creating a user model, controller and view
+
+Authentication
+
+https://github.com/codahale/bcrypt-ruby
+* bcrypt documentation
+
+rails g model User email:string password_digest:string
+
+* Must name the column where we are going to store user passwords password_disgest.
+
+rails g controller users new create
+
+* creates users controller with actions new and create
+
+Rails.application.routes.draw do
+  resources :products
+  resources :users, only: [:new, :create]
+end
+
+* The only keyword restricts the routes to only the actions specified in the array. Instead of generating all 7 restful Routes
+
+def create
+  @user = User.new(user_params)
+
+  if @user.save
+    redirect_to products_url notice: "Signed Up!"
+  else
+    render :new
+  end
+end
+
+Q: How does notice: work exactly?
+* some how linked to the flash method? Yes, exactly.
+A: redirect_to(options = {}, response_status_and_flash = {})
+* flash messages when entering information from form after render or redirect_to. You can add anything to the flash message from anywhere in the controller as long as you use a key that the flash method knows about.
+* pass a key that flash knows about in the response_status_and_flash = {} as shown above.
+
+
+<%= form_for @user do |f| %>
+* use <%= with form_for
 
 
 
-
-
-
+Q: Error message code for Sign up form
+* should I memorize this?
+* where does .errors, .full_messages, come from exactly?
+* search Active Model Errors, and Active Model Validations
+  * seems like if you use validations in your model,
+A: Review Active model errors methods. Can be called on any active model object.
