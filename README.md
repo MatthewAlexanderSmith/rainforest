@@ -130,3 +130,72 @@ Q: Error message code for Sign up form
 * search Active Model Errors, and Active Model Validations
   * seems like if you use validations in your model,
 A: Review Active model errors methods. Can be called on any active model object.
+
+8. Creating log in functionality
+
+Sessions
+* no need to create a model because there is nothing saved to a database when logging in.
+* don't actually need the 'new' action in the sessions controller.
+
+Q: Difference between form_for and form_tag?
+
+A:
+
+form_for
+* prefers an active record object as it's first arg.
+* easily creates a create or edit form
+* Used when modifying or add an instance of a model.
+
+form_tag
+* best used for non model forms
+* no model associated with a session
+* silently creates an anti forgery field like form_for
+* as in the example above, we are not creating or editing a record. When are simply authenticating a user - checking to see if they exist and verifying credentials.
+
+Q: How are :email and :password parameters used in the sessions controller and view? Where are they being created?
+
+A: Referencing email and password of users.
+
+
+Q:
+___
+<h1>Log in</h1>
+
+<%= form_tag sessions_path do %>
+  <div class="field">
+    <%= label_tag :email %><br/>
+    <%= text_field_tag :email, params[:email] %>
+  </div>
+  <div class="field">
+    <%= label_tag :password %><br/>
+    <%= password_field_tag :password %>
+  </div>
+  <div class="actions"><%= submit_tag "Log in" %></div>
+<% end %>
+___
+A: Using form_tag because there is no model associated with the session.
+* Login Form / sessions/new.html.erb
+* cannot use form_for in this case
+* use form_tag
+  * tell it where the form is going to post to
+  * where should this form submit the information to
+  * i.e sessions controller / create action.
+
+
+def create
+    user = User.find_by(email: params[:email])
+    if user && user.authenticate(params[:password])
+      session[:user_id] = user.id
+      redirect_to products_url notice: "Logged In!"
+    else
+      render :new
+    end
+  end
+
+Q: At what point in this process is the session hash created? Where does it live and how is it used exactly?
+
+
+<%= form_tag sessions_path do %>
+* do not need the |f| in this case because we are not iterating over a list!
+
+<%= form_tag sessions_path do %>
