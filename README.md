@@ -210,3 +210,15 @@ http://guides.rubyonrails.org/action_controller_overview.html#the-flash
 
 redirect_to products_url, notice: "Logged In!"
 * remember to put a comma after products_url!
+
+10. Adding logic to display 'Signed in as' or 'Login or Sign up' in the application view
+
+helper_methods
+* used to share methods defined in the controller with a view.
+* typical helper methods are not available in the views
+
+Q: helper_method :current_user
+* looks like you need to define a method as a helper_method
+
+Q: protect_from_forgery
+* how does this work exactly?
