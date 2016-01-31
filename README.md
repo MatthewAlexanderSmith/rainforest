@@ -222,3 +222,20 @@ Q: helper_method :current_user
 
 Q: protect_from_forgery
 * how does this work exactly?
+* exists by default in the application_controller
+
+11. Creating review model and associating the user, product and review models
+
+UML
+* standard for drawing
+
+Associations come in 6 different forms:
+
+* belongs_to
+  * specifies the direction of the relationship
+  * and specifies that 'reviews' in this case, must have a foreign key.
+has_one
+has_many
+has_many :through
+has_one :through
+has_and_belongs_to_many
