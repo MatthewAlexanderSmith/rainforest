@@ -234,8 +234,86 @@ Associations come in 6 different forms:
 * belongs_to
   * specifies the direction of the relationship
   * and specifies that 'reviews' in this case, must have a foreign key.
+
 has_one
 has_many
 has_many :through
 has_one :through
 has_and_belongs_to_many
+
+Nested routes
+* Nested routes allow you to capture an associative relationship in your routing. In this case, you could include this route declaration and remove the routes generated above:
+
+  resources :products do
+     resources :reviews, only: [:show, :create, :destroy]
+   end
+
+ READ MORE
+ http://guides.rubyonrails.org/action_controller_overview.html
+ * Veeery helpful
+
+
+READ MORE
+http://guides.rubyonrails.org/association_basics.html
+Section 4 is very helpful. Includes details about how to use  association methods, and what methods are available once you define associations in the models.
+
+ @review = @product.reviews.build(review_params)
+ * creates a new instance of Review that is associated with @product which was loaded when the private method load_product was called. The value related to the :product_id key in the url was passed to the params hash.
+
+ Q: referencing the 'collection' i.e 'reviews' plural is a little confusing here.
+
+ @review.user = current_user
+ * sets the user_id field equal to the current user id?
+ * the current_user method pulls the current user from the sessions hash? and returns the id?
+
+
+redirect_to products_url, notice: "Review Saved Succesfully!"
+* remember the , after products_url!
+
+render 'products/show'
+Q: is there a symbol I can use instead of 'products/show'?
+
+params.require(:review).permit(:comment, :product_id)
+Q: :comment is entered through a form somewhere?
+Q: :product_id is passed to the params hash from the URL?
+
+____
+def show
+  @product = Product.find(params[:id])
+
+  if current_user
+    @review = @product.reviews.build
+  end
+end
+
+if current_user
+  @review = @product.reviews.build
+end
+
+Q:
+* if current_user is true (if there is presently a user signed in)
+* instantiate a new instance of Review and associat with @product, I.E the product we are looking at on the show page (/products/:id)
+____
+
+____
+<% @product.reviews.each do |review|  %>
+  <p>
+    <%= review.comment %>
+    <br>
+    <% if review.user != nil  %>
+      <em> by <%= review.user.email %></em>
+      Added on: <%= review.created_at %>
+    <% end %>
+  </p>
+<% end %>
+
+Q: why <% if review.user != nil  %>? Is it possible to create a review without being logged in? Isn't every review associated with a user?
+* is this code there so that only users who have accounts can see other users emails?
+____
+
+<%= form_for ([@product, @review]) do |f| %>
+
+Q: looks like you can pass form_for an array of objects, which tells it about associations?
+
+Q: Where @product = Product.find(params[:id]) and @review = @product.reviews.build
+as defined in the products#show action.
