@@ -317,3 +317,24 @@ Q: looks like you can pass form_for an array of objects, which tells it about as
 
 Q: Where @product = Product.find(params[:id]) and @review = @product.reviews.build
 as defined in the products#show action.
+
+___
+Nested Resources
+* It's common to have resources that are logically children of other resources.
+* In the rain forest app for example reviews is a logical child of products.
+
+resources :products do
+  resources :reviews, only: [:show, :create, :destroy]
+end
+___
+
+Filters
+*
+Nested Forms
+Practice Refactoring views
+
+See w4d1.md notes for more on
+* filters
+* callbacks
+* validations
+* partials
