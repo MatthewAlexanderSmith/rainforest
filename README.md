@@ -340,3 +340,35 @@ See w4d1.md notes for more on
 * partials
 
 Q: Looks like the section 13 code is redundant.
+
+
+Q:
+___
+<% if @product.reviews.any? %>
+
+    <% @product.reviews.each do |review|  %>
+        <p>
+          <%= review.comment %>
+          <br>
+          <% if review.user != nil  %>
+              <em> by <%= review.user.email %></em>
+              Added on: <%= review.created_at %>
+          <% end %>
+        </p>
+    <% end %>
+
+<% else %>
+    <p>
+      Be the first to review this product!
+    </p>
+
+<% end %>
+
+<% if @product.reviews.any? %>
+* returns true?
+
+A: A new instance of Review was created and was being associated with the current product in the products controller
+___
+
+redirect_to :back
+* use this to return to the page where the request was created
