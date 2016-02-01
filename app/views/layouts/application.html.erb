@@ -7,6 +7,31 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
+    <header>
+      <h1 class="header-title">RainForest</h1>
+      <div class="header-nav-container">
+
+          <p>
+            <%= link_to "Home", products_path %>
+            <%= link_to "Products", products_path %>
+          </p>
+
+          <% if current_user %>
+            <p>
+              <%= link_to "Profile", user_path(current_user) %>
+              <%= link_to "Log out", session_path("current"), :method => :delete %>
+            </p>
+          <% else %>
+            <p>
+              <%= link_to "Log in", new_session_path %> or <%= link_to "Sign up", new_user_path %>
+            </p>
+          <% end %>
+
+
+      </div>
+    </header>
+
+
 
 
     <% if flash[:notice] %>
@@ -25,7 +50,7 @@
       <% if current_user %>
         Signed in as <%= current_user.name%>. <%= link_to "Log out", session_path("current"), :method => :delete %>
       <% else %>
-        <%= link_to "Log in", new_session_path %> or <%= link_to "Sign up", new_user_path %>
+
       <% end %>
     </p>
   </body>
