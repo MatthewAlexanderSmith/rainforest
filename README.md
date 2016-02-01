@@ -338,3 +338,5 @@ See w4d1.md notes for more on
 * callbacks
 * validations
 * partials
+
+Q: Looks like the section 13 code is redundant.
