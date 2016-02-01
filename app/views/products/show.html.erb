@@ -8,18 +8,31 @@
 </div>
 
 <h3>Reviews</h3>
-<p>Reviews for <%= @product.name %></p>
 
 
-<% @product.reviews.each do |review|  %>
-  <p>
-    <%= review.comment %>
-    <br>
-    <% if review.user != nil  %>
-      <em> by <%= review.user.email %></em>
-      Added on: <%= review.created_at %>
+
+<% if @product.reviews.any? %>
+
+    <% @product.reviews.each do |review|  %>
+        <p>
+          <%= review.comment %>
+          <br>
+          <% if review.user != nil  %>
+              <em> by <%= review.user.email %></em>
+              Added on: <%= review.created_at %>
+          <% end %>
+          <%= link_to "Delete Review", product_review_path(@product, review), method: :delete, data: {confirm: "Are
+          you sure you want to delete"} %>
+        </p>
     <% end %>
-  </p>
+
+<% else %>
+    <p>
+      Be the first to review this product!
+    </p>
+
 <% end %>
+
+
 
 <%= render 'reviews/form' %>

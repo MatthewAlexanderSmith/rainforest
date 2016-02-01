@@ -10,7 +10,8 @@ class ReviewsController < ApplicationController
     @review = @product.reviews.build(review_params)
     @review.user = current_user
     if @review.save
-      redirect_to products_url, notice: "Review Saved Succesfully!"
+      redirect_to  product_path(@product)
+      # redirect_to products_url, notice: "Review Saved Succesfully!"
     else
       render 'products/show'
     end
@@ -20,6 +21,7 @@ class ReviewsController < ApplicationController
   def destroy
     @review = Review.find(params[:id])
     @review.destroy
+    redirect_to product_path(@product)
   end
 
 
