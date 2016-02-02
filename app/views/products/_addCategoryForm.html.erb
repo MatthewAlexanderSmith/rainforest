@@ -1,12 +1,2 @@
-<% if current_user %>
-  <%= form_for [@product, @category] do |f| %>
-    <% if @category.errors.any?  %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@category.errors.count, "error")%> prohibited this tag from being saved: </h2>
-      </div>
-
-  <% end %>
-
-<% end %>
 
 
