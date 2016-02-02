@@ -25,3 +25,17 @@ Product.create!(
     :price_in_cents   => "50000"
 )
 
+Category.create!(
+    :name             => "Books"
+
+)
+
+Category.create!(
+    :name             => "Electronics"
+
+)
+
+Category.create!(
+    :name             => "Instruments"
+
+)

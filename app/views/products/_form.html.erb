@@ -27,6 +27,20 @@
     <span>&cent;</span><%= p.number_field :price_in_cents %>
   </div>
 
+  <p>
+    <% Category.all.each do |category| %>
+      <div>
+        <p>
+
+          <%= radio_button_tag "product[category_id]", category.id, @product.category_id== category.id %><%= category
+                                                                                                         .name %>
+        </p>
+
+      </div>
+    <% end %>
+  </p>
+
+
   <div>
       <%= p.submit %>
   </div>

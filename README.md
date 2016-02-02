@@ -372,3 +372,14 @@ ___
 
 redirect_to :back
 * use this to return to the page where the request was created
+
+be rake db:drop db:create db:migrate
+* kills database entirely
+* makes new blank database
+* runs the migrations on the new database
+!!!!Never do this in production. Everything will be lost!!!!
+
+___
+<%= radio_button_tag "product[category_id]", category.id, @product.category_id== category.id %><%= category.name %>
+Q: Examine.
+___

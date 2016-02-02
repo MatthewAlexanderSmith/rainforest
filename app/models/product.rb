@@ -4,6 +4,7 @@ class Product < ActiveRecord::Base
 
   has_many :reviews, dependent: :destroy
   has_many :users, through: :reviews
+  has_one :category
 
   def formatted_price
     price_in_dollars = price_in_cents / 100.0
