@@ -1,4 +1,5 @@
 <%= form_for @product do |p| %>
+
   <% if @product.errors.any?  %>
     <div id="error_explanation">
       <h2><%= pluralize(@product.errors.count, "error")%> prohibited this product from being saved:</h2>
@@ -11,38 +12,39 @@
     </div>
   <% end %>
 
-
-  <div class="field">
+<div class="row"></div>
+  <div class="six columns">
     <%= p.label :name %>
-    <%= p.text_field :name %>
+    <%= p.text_field :name, class: "u-full-width" %>
   </div>
 
-  <div class="field">
+  <div class="six columns">
     <%= p.label :description %>
-    <%= p.text_field :description %>
+    <%= p.text_field :description, class: "u-full-width" %>
   </div>
 
-  <div class="field">
+  <div class="six columns">
     <%= p.label :price_in_cents %>
-    <span>&cent;</span><%= p.number_field :price_in_cents %>
+    <span>&cent;</span><%= p.number_field :price_in_cents, class: "u-full-width" %>
   </div>
 
-  <p>
+  <div class="six columns">
     <% Category.all.each do |category| %>
       <div>
-        <p>
-
-          <%= radio_button_tag "product[category_id]", category.id, @product.category_id== category.id %><%= category
-                                                                                                         .name %>
-        </p>
-
+        <%= radio_button_tag "product[category_id]", category.id, @product.category_id== category.id %> <%= category
+                                                                                                            .name %>
       </div>
     <% end %>
-  </p>
+  </div>
 
 
-  <div>
+  <div class="six columns">
       <%= p.submit %>
   </div>
 
 <% end %>
+
+  <div class="six columns">
+    <%= link_to "Back", products_path %>
+  </div>
+

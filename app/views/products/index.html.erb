@@ -1,15 +1,21 @@
-<h1>Products (<%= @products.count %>)</h1>
 
 
 
-<p>
-<%= link_to "New Product", new_product_path %>
-</p>
-
-<ul>
+<table class="u-full-width">
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Description</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
   <% @products.each do |p|%>
-
-      <li><%= link_to p.name, product_path(p.id)%> -- <%= p.description %> -- &#36;<%= p.formatted_price %></li>
-
+    <tr>
+      <td><%= link_to p.name, product_path(p.id)%></td>
+      <td><%= p.description %></td>
+      <td>&#36;<%= p.formatted_price %></td>
+    </tr>
   <% end %>
-</ul>
+  </tbody>
+</table>

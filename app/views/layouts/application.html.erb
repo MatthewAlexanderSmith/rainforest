@@ -6,31 +6,30 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
   </head>
+
   <body>
-    <header>
-      <h1 class="header-title">RainForest</h1>
-      <div class="header-nav-container">
-
-          <p>
-            <%= link_to "Home", products_path %>
-            <%= link_to "Products", products_path %>
-          </p>
-
-          <% if current_user %>
-            <p>
-              <%= link_to "Profile", user_path(current_user) %>
-              <%= link_to "Log out", session_path("current"), :method => :delete %>
-            </p>
-          <% else %>
-            <p>
-              <%= link_to "Log in", new_session_path %> or <%= link_to "Sign up", new_user_path %>
-            </p>
-          <% end %>
+  <div class="container">
+    <header class="twelve coluns">
+      <h1 class="four columns">RainForest</h1>
 
 
-      </div>
+          <div class="float-right nav-top-margin">
+             <% if current_user %>
+                <p>
+                  <%= link_to "New Product", new_product_path, class: "button" %>
+                  <%= link_to "User Profile", user_path(current_user), class: "button" %>
+                  <%= link_to "Log out", session_path("current"), :method => :delete, class: "button" %>
+                </p>
+             <% else %>
+                <p>
+                  <%= link_to "Log in", new_session_path, class: "button" %> or <%= link_to "Sign up", new_user_path,
+               class: "button" %>
+                </p>
+            <% end %>
+          </div>
+
+
     </header>
-
 
 
 
@@ -46,12 +45,16 @@
 
   <%= yield %>
 
-    <p class="userinfo">
-      <% if current_user %>
-        Signed in as <%= current_user.name%>. <%= link_to "Log out", session_path("current"), :method => :delete %>
-      <% else %>
 
-      <% end %>
-    </p>
+      <footer class="twelve columns">
+        <p class="userinfo">
+          <% if current_user %>
+            Signed in as <%= current_user.name%>. <%= link_to "Log out", session_path("current"), :method => :delete %>
+          <% else %>
+
+          <% end %>
+        </p>
+      </footer>
+  </div>
   </body>
 </html>

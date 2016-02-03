@@ -383,3 +383,9 @@ ___
 <%= radio_button_tag "product[category_id]", category.id, @product.category_id== category.id %><%= category.name %>
 Q: Examine.
 ___
+
+Q: Add Search form to search by category
+http://www.jorgecoca.com/buils-search-form-ruby-rails/
+
+Q:
+A belongs_to association represents a one to one relationship. 
