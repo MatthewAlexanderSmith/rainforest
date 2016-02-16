@@ -25,6 +25,24 @@ Product.create!(
     :price_in_cents   => "50000"
 )
 
+Product.create!(
+    :name             => "Nalgene Water Bottle",
+    :description      => "Made in USA",
+    :price_in_cents   => "20"
+)
+
+Product.create!(
+    :name             => "Mac Book Pro 15in 2015",
+    :description      => "Sweet Laptop",
+    :price_in_cents   => "4500"
+)
+
+Product.create!(
+    :name             => "Samsung S3",
+    :description      => "Phone that works",
+    :price_in_cents   => "200"
+)
+
 Category.create!(
     :name             => "Books"
 

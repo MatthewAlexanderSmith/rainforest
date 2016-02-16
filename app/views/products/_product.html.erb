@@ -1,0 +1,10 @@
+
+
+
+    <tr>
+      <td><%= link_to product.name, product_path(product.id)%></td>
+      <td><%= product.description %></td>
+      <td>&#36;<%= product.formatted_price %></td>
+    </tr>
+
+<!-- keeps the description to 100 characters or less -->

@@ -1,5 +1,12 @@
+<div id="search_field">
+  <%= form_tag products_path, method: :get, authentication: false, id: 'search-form' do %>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search" %>
+  <% end %>
+</div>
+<div id="products">
 
-
+</div>
 
 <table class="u-full-width">
   <thead>
@@ -10,12 +17,6 @@
     </tr>
   </thead>
   <tbody>
-  <% @products.each do |p|%>
-    <tr>
-      <td><%= link_to p.name, product_path(p.id)%></td>
-      <td><%= p.description %></td>
-      <td>&#36;<%= p.formatted_price %></td>
-    </tr>
-  <% end %>
+    <%= render @products %>
   </tbody>
 </table>
