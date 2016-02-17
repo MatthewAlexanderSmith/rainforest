@@ -383,7 +383,9 @@ be rake db:drop db:create db:migrate
 !!!!Never do this in production. Everything will be lost!!!!
 
 ___
+```
 <%= radio_button_tag "product[category_id]", category.id, @product.category_id== category.id %><%= category.name %>
+```
 Q: Examine.
 ___
 
