@@ -559,3 +559,33 @@ Q: In a get request, the information from the form I.E the query string is place
 url: '/products?search=' + searchValue,
 ```
 Q: The question mark separates the path from the query. You can obviously append a variable onto the end of a query as shown above.
+
+## .get() shorthand
+#### .ajax() has multiple shorthands
+
+```
+$.get('/products?search=' + searchValue)
+ .done(function(data){
+   console.log(data);
+   $('#products').html(data);
+ });
+ ```
+
+ Q: in the code above, where is 'data' coming from? Is it an object that is by default, passed back with the request?
+
+
+## $.getScript()
+#### another shorthand function
+Expects a script as a response - doesn't have the data type option. Once it receives a script it will execute the script.
+
+Prevents the need for a callback - the script acts like a callback.
+
+```
+$('#products').html("<%= escape_javascript(render @products) %>");
+```
+
+Inside the template, we add javascript and erb. The erb portion gets interpreted first, therefore allowing you to generate responses that are partially html or strings. escape_javascript takes care of ensuring there are no issues with formatting by the time it gets executed as JS. escape_javascript can also be represented as j.
+
+Q: pertains the the note above. Is erb executed on the server side and compiled to html / js before the response is sent back? And, how does escape_javascript actually work?
+
+Does it essentially remove special characters that will screw up the javascript? Can we elaborate pls?
