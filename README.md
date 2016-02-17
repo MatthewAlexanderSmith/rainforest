@@ -394,3 +394,168 @@ http://www.jorgecoca.com/buils-search-form-ruby-rails/
 
 Q:
 A belongs_to association represents a one to one relationship.
+___
+
+# Implementing AJAX Search
+
+```
+<%= form_tag products_path, method: :get, authentication: false, id: 'search-form' do %>
+  <%= text_field_tag :search, params[:search] %>
+  <%= submit_tag "Search" %>
+<% end %>
+```
+
+Q: How does the form_tag line work exactly?
+
+Q: Why 'authentication: false'?
+___
+```
+class ProductsController < ApplicationController
+  ...
+  def index
+    @products = if params[:search]
+      Product.where("LOWER(name) LIKE LOWER(?)", "%#{params[:search]}%")
+    else
+      Product.all
+    end
+  end
+  ...
+end
+```
+Q: Why the question mark?
+
+A: Passing values to the data base query in this format I.E an array is a way of santizing user input and avoiding SQL injection attacks. The value inside the quotations at array[1] replaces the question mark.
+
+## LOWER(character_expression):
+character_expression:
+Is an expression of character or binary data. character_expression can be a constant, variable, or column. character_expression must be of a data type that is implicitly convertible to varchar. Otherwise, use CAST to explicitly convert character_expression.
+* Returns a character expression after converting uppercase character data to lowercase.
+
+https://msdn.microsoft.com/en-us/library/ms174400.aspx?f=255&MSPPError=-2147217396
+
+## LIKE vs ILIKE
+
+### LIKE
+Determines whether a specific character string matches a specified pattern. A pattern can include regular characters and wildcard characters. During pattern matching, regular characters must exactly match the characters specified in the character string. However, wildcard characters can be matched with arbitrary fragments of the character string. Using wildcard characters makes the LIKE operator more flexible than using the = and != string comparison operators. If any one of the arguments is not of character string data type, the SQL Server Database Engine converts it to character string data type, if it is possible.
+https://msdn.microsoft.com/en-us/library/ms179859.aspx
+
+### ILIKE
+The key word ILIKE can be used instead of LIKE to make the match case-insensitive according to the active locale. This is not in the SQL standard but is a PostgreSQL extension.
+
+## %
+Any string of zero or more characters.
+
+WHERE title LIKE '%computer%' finds all book titles with the word 'computer' anywhere in the book title.
+___
+
+# Using the XHR object
+
+```
+
+<!-- index.html.erb -->
+<tbody id="products">
+  <%= render @products %>
+</tbody>
+
+<!-- bottom of page -->
+<script type="text/javascript">
+  function display_search_results() {
+    // readyState === 4 means that the asynchronous request completed successfully
+    if (this.readyState === 4) {
+      console.log(this);
+      document.getElementById('products').innerHTML = this.responseText;
+    }
+  }
+
+  var form = document.getElementById('search-form');
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+    var searchValue = document.getElementById('search').value;
+
+    var xhr = new XMLHttpRequest();
+    xhr.onload = display_search_results;
+    xhr.open('GET', '/products?search=' + searchValue, true);
+    xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+    xhr.send();
+  });
+</script>
+
+<!-- products_controller.rb -->
+
+def index
+   @products = if params[:search]
+     Product.where("LOWER(name) LIKE LOWER(?)", "%#{params[:search]}%")
+   else
+     Product.all
+   end
+
+   if request.xhr?
+     render @products
+   end
+ end
+ ```
+ In the example above, this line of code:
+
+```
+document.getElementById('products').innerHTML = this.responseText;
+```
+
+injects the responseText included in the GET request into the DOM element with id="products"?
+
+I did this:
+```
+<tbody id="products">
+  <%= render @products %>
+</tbody>
+```
+and it worked...
+
+Q: Rails magic? Let's elaborate on this a bit.
+___
+
+#jQuery $.aJax
+
+#### Why page:load?
+```
+$(document).on('ready page:load', function() {
+  // put your javascript here
+});
+```
+Q: Why add page:load here? Doesn't just 'ready' alone ensure the entire document is load before executing the callback function?
+
+## val()
+
+```
+var searchValue = $('#search').val();
+```
+Get the current value of the first element in the set of matched elements or set the value of every matched element.
+
+The .val() method is primarily used to get the values of form elements such as input, select and textarea. In the case of select elements, it returns null when no option is selected and an array containing the value of each selected option when there is at least one and it is possible to select more because the multiple attribute is present.
+
+## $.ajax
+
+### Perform an asynchronous HTTP (Ajax) request.
+
+```
+$(document).on('ready page:load', function() {
+  $('#search-form').submit(function(event) {
+    event.preventDefault();
+    var searchValue = $('#search').val();
+
+    $.ajax({
+      url: '/products?search=' + searchValue,
+      type: 'GET',
+      dataType: 'html'
+    }).done(function(data){
+      $('#products').html(data);
+    });
+  });
+});
+```
+
+Q: In a get request, the information from the form I.E the query string is placed in the url:
+
+```
+url: '/products?search=' + searchValue,
+```
+Q: The question mark separates the path from the query. You can obviously append a variable onto the end of a query as shown above.

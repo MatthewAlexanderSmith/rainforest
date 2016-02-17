@@ -5,7 +5,11 @@ class ProductsController < ApplicationController
     @products = if params[:search]
       Product.where("LOWER(name) LIKE LOWER(?)", "%#{params[:search]}%")
     else
-      @products = Product.all
+      Product.all
+    end
+
+    if request.xhr?
+      render @products
     end
   end
 
