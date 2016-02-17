@@ -43,6 +43,16 @@ Product.create!(
     :price_in_cents   => "200"
 )
 
+100.times do |i|
+
+Product.create({
+  name: "Product#{i}",
+  description: "Description#{i}",
+  price_in_cents: i
+  }
+)
+end
+
 Category.create!(
     :name             => "Books"
 

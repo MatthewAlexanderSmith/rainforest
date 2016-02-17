@@ -1,3 +1,8 @@
+
+
+<!-- renders a helpful message with numbers of displayed vs. total entries -->
+
+
 <div id="search_field">
   <%= form_tag products_path, method: :get, authentication: false, id: 'search-form' do %>
     <%= text_field_tag :search, params[:search] %>
@@ -7,6 +12,9 @@
 <!-- <div id="products">
 
 </div> -->
+
+<h4>Products Listing</h4>
+<h5><small><%= page_entries_info @products %></small></h5>
 
 <table class="u-full-width">
   <thead>
@@ -18,8 +26,11 @@
   </thead>
   <tbody id="products">
     <%= render @products %>
+    <%# render partial: "product", collection: @products %>
   </tbody>
 </table>
+
+<%= paginate @products %>
 <!-- Performs the same function as the easier to read  and more succinct jQuery equivalent found in products.js -->
 <!-- <script type="text/javascript">
 function display_search_results() {

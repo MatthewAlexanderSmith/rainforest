@@ -408,6 +408,10 @@ ___
 Q: How does the form_tag line work exactly?
 
 Q: Why 'authentication: false'?
+
+A: :authenticity_token - Authenticity token to use in the form. Use only if you need to pass custom authenticity token string, or to not add authenticity_token field at all (by passing false). Remote forms may omit the embedded authenticity token by setting config
+
+:authentication is outdated.
 ___
 ```
 class ProductsController < ApplicationController
@@ -511,6 +515,13 @@ I did this:
 and it worked...
 
 Q: Rails magic? Let's elaborate on this a bit.
+
+The following two lines of code are equivalent.
+```
+<%= render @products %>
+<%= render partial: "product", collection: @products %>
+```
+
 ___
 
 #jQuery $.aJax
@@ -522,6 +533,11 @@ $(document).on('ready page:load', function() {
 });
 ```
 Q: Why add page:load here? Doesn't just 'ready' alone ensure the entire document is load before executing the callback function?
+
+A: relates to Turbo links
+read up on the turbolinks gem.
+Will be covered in more depth on Friday Feb 19th
+
 
 ## val()
 
@@ -573,6 +589,8 @@ $.get('/products?search=' + searchValue)
 
  Q: in the code above, where is 'data' coming from? Is it an object that is by default, passed back with the request?
 
+ A: By default the response text is passed to .done callback. You can name it whatever you want...
+
 
 ## $.getScript()
 #### another shorthand function
@@ -588,4 +606,33 @@ Inside the template, we add javascript and erb. The erb portion gets interpreted
 
 Q: pertains the the note above. Is erb executed on the server side and compiled to html / js before the response is sent back? And, how does escape_javascript actually work?
 
-Does it essentially remove special characters that will screw up the javascript? Can we elaborate pls?
+A: essentially removes special characters that will screw up the javascript
+
+# Pagination
+
+```
+def index
+  @products = if params[:search]
+    Product.where("LOWER(name) LIKE LOWER(?)", "%#{params[:search]}%")
+  else
+    Product.all
+  end
+
+  # if request.xhr?
+  #   render @products
+  # end
+
+  @products = @products.order('products.created_at DESC').page(params[:page])
+
+  respond_to do |format|
+    format.html
+    format.js
+  end
+end
+```
+
+
+
+```
+@products = @products.order('products.created_at DESC').page(params[:page])
+```
