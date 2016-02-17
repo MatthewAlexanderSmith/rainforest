@@ -344,6 +344,7 @@ Q: Looks like the section 13 code is redundant.
 
 Q:
 ___
+```
 <% if @product.reviews.any? %>
 
     <% @product.reviews.each do |review|  %>
@@ -365,7 +366,9 @@ ___
 <% end %>
 
 <% if @product.reviews.any? %>
+```
 * returns true?
+
 
 A: A new instance of Review was created and was being associated with the current product in the products controller
 ___
@@ -388,4 +391,4 @@ Q: Add Search form to search by category
 http://www.jorgecoca.com/buils-search-form-ruby-rails/
 
 Q:
-A belongs_to association represents a one to one relationship. 
+A belongs_to association represents a one to one relationship.
