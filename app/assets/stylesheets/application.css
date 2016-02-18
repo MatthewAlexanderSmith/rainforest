@@ -57,3 +57,15 @@ header.twelve.coluns {
     float: right;
     display: inline-block;
 }
+
+p {
+  margin-bottom: 1.5rem;
+}
+
+textarea#review_comment {
+    width: 100%;
+}
+
+.field {
+    width: 100%;
+}

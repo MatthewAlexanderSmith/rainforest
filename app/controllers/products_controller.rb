@@ -11,7 +11,7 @@ class ProductsController < ApplicationController
     # if request.xhr?
     #   render @products
     # end
-    @products = @products.order('products.created_at DESC').page(params[:page])
+    @products = @products.order('products.created_at DESC').page(params[:page]).per(10)
 
     respond_to do |format|
       format.html
@@ -66,6 +66,4 @@ class ProductsController < ApplicationController
   def product_params
     params.require(:product).permit(:name, :description, :price_in_cents, :category_id)
   end
-
-
 end

@@ -5,16 +5,24 @@
 </div>
 
 
-
-
 <%= link_to "Back to Products", products_path %> | <%= link_to "Edit Product", edit_product_path(@product) %> | <%= link_to "Delete", @picture, method: :delete, data: {confirm: "Are you sure you want to delete this picture?"}  %>
 
 <h3>Reviews</h3>
 
-
-
-
-
-<%= render 'reviews/displayReviews' %>
+<div id="review-list">
+  <%= render :partial => 'reviews' %>
+</div>
 
 <%= render 'reviews/form' %>
+
+<script type="text/javascript">
+
+  $(document).ready(function() {
+     $("#new_review")
+        .on('ajax:beforeSend', function() {alert("loading!");})
+        .on('ajax:success', function(data, status, xhr) {alert("success!");})
+        .on('ajax:error', function(xhr, status, error) {alert("error!");})
+        .on('ajax:complete', function() {alert("complete!");});
+  });
+
+</script>

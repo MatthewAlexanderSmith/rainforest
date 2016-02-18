@@ -23,4 +23,13 @@ $(document).on('ready page:load', function() {
 
 
   });
-});
+
+  // $(window).scroll(function() {
+  //   var url = $('.pagination span.next').children().attr('href');
+  //    if ($(window).scrollTop() > $(document).height() - $(window).height() - 100) {
+  //      $('.pagination').text("Fetching more products...");
+  //      return $.getScript(url);
+  //    }
+  //  });
+
+ });

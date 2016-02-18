@@ -631,8 +631,46 @@ def index
 end
 ```
 
-
-
 ```
 @products = @products.order('products.created_at DESC').page(params[:page])
 ```
+
+Q: How does the page method work exactly? Why is there a :page key in the params hash? Where does it come from exactly?
+
+As you can see, the first bit of our pagination code is here. The page method tells kaminari what page we are on. The per method tells kaminari how many items we wish to have per page.
+https://richonrails.com/articles/pagination-with-kaminari
+
+___
+
+# AJAX Forms
+The rails.js file has unobtrusive JavaScript which acts when/if the HTML tells it to.
+
+Q: rails.js file? Tell me more about this file please.
+
+## Asynchronous Post Request with Javascript
+```
+<%= form_for(@product, :remote => true) do |f| %>
+    ...
+<% end %>
+```
+by setting data-remote="true" we achieve the following:
+
+* issue an asynchronous post request using javascript.
+* prevents the browser from posting and reloading the whole page.
+* request that the response be in javascript format rather than HTML.
+___
+
+Q:
+
+3. The rails.js file, which is included in the page, finds the form with the attribute and sets it to submit via ajax and ask for a JavaScript response
+
+Q:
+
+6. Your router receives the response and runs the correct action (method) in your controller, putting the form information into the params hash.
+
+I thought the form information gets put into the params hash from the browser?
+
+## Adding ajax to delete button
+Q: How does this work?
+
+Pick up at handling errors

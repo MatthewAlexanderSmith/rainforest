@@ -1,3 +1,19 @@
 // Place all the styles related to the products controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#listingTitle {
+    float: left;
+}
+
+#search_field {
+    float: right;
+}
+
+#search{
+  height: 38px;
+}
+
+p {
+  margin-bottom: 1.5rem;
+}

@@ -3,19 +3,29 @@
 <!-- renders a helpful message with numbers of displayed vs. total entries -->
 
 
-<div id="search_field">
-  <%= form_tag products_path, method: :get, authentication: false, id: 'search-form' do %>
-    <%= text_field_tag :search, params[:search] %>
-    <%= submit_tag "Search" %>
-  <% end %>
-</div>
+
 <!-- <div id="products">
 
 </div> -->
+<div class="twelve columns">
+  <div id="listingTitle">
+    <h4>Products Listing</h4>
+  </div>
 
-<h4>Products Listing</h4>
-<h5><small><%= page_entries_info @products %></small></h5>
+  <div id="search_field">
+    <%= form_tag products_path, method: :get, authentication: false, id: 'search-form' do %>
+      <%= text_field_tag :search, params[:search] %>
+      <%= submit_tag "Search" %>
+    <% end %>
+  </div>
+</div>
 
+<div class="twelve columns">
+  <h5><small><%= page_entries_info @products %></small></h5>
+</div>
+<div class="twelve columns">
+  <%= paginate @products %>
+</div>
 <table class="u-full-width">
   <thead>
     <tr>
@@ -30,7 +40,7 @@
   </tbody>
 </table>
 
-<%= paginate @products %>
+
 <!-- Performs the same function as the easier to read  and more succinct jQuery equivalent found in products.js -->
 <!-- <script type="text/javascript">
 function display_search_results() {
