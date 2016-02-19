@@ -1,0 +1,16 @@
+<script type="text/javascript">
+  
+</script>
+<div id="new_review">
+  <p>
+    <%= review.comment %>
+  <br>
+
+  <% if review.user != nil  %>
+      <em> by <%= review.user.email %></em>
+      Added on: <%= review.created_at %>
+  <% end %>
+
+  <%= link_to "Delete Review", product_review_path(@product, review), method: :delete, data: {confirm: "Are
+  you sure you want to delete"} %>
+</div>

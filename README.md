@@ -674,3 +674,57 @@ I thought the form information gets put into the params hash from the browser?
 Q: How does this work?
 
 Pick up at handling errors
+
+
+@review = Review.new
+@review = @product.reviews.build
+* adds a review to the collection
+* the collection includes everything in the database and memory
+
+Always goes to the controller for the thing that you are trying to make.
+
+
+Q: serialize()
+How does this function work?
+
+javascript
+
+## Handling Errors
+
+```
+// Stretch #1
+$('#review-list').prepend('<%=j render @review  %>');
+// Stretch #2
+$("#new_review").css("background-color", "yellow");
+// Stretch #3
+$('html, body').animate({
+  scrollTop: $("#new_review").offset().top
+}, 1000);
+```
+Q: Is there a better way to what I did above?
+___
+
+```
+<% if @review.errors.present? %>
+  $("#review-form-errors").html("<%= escape_javascript(render(:partial => '/products/review_form_errors')) %>");
+<% else %>
+  $("#review-form-errors").html("");
+  // Stretch #1
+  $('#review-list').prepend('<%=j render @review  %>');
+  // Stretch #2
+  $("#new_review").css("background-color", "yellow");
+  $('html, body').animate({
+    scrollTop: $("#new_review").offset().top
+  }, 1000);
+
+  console.log("There should be some shit printing right??");
+
+  $("#new_review")[0].reset();
+<% end %>
+```
+Q: Why is 'this' the window in this case? I clicked on the submit button - I thought maybe it would be the submit button? Or the DOM element that contains the button...
+___
+## Stretch 3
+Refresh the review list without using a view template (app/views/reviews/create.js.erb):
+
+Q: How do I do this? I think this is what was happening before I added the 'prepend' code. i.e <%= j (render (:partial => 'products/reviews')) %>

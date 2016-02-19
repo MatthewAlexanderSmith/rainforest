@@ -1,0 +1,12 @@
+<div id="error_explanation">
+  <% if @review.errors.any? %>
+    <h6><%= pluralize(@review.errors.count, "error") %> prohibited this review from being saved:</h6>
+    <ul>
+      <% @review.errors.full_messages.each do |message| %>
+        <div class="alert">
+          <li><%= message %></li>
+        </div>
+      <% end %>
+    </ul>
+  <% end %>
+</div>

@@ -1,1 +1,17 @@
-$("#review-list").html("<%= escape_javascript(render(:partial => 'products/reviews')) %>");
+<% if @review.errors.present? %>
+  $("#review-form-errors").html("<%= escape_javascript(render(:partial => '/products/review_form_errors')) %>");
+<% else %>
+  $("#review-form-errors").html("");
+  // Stretch #1
+  $('#review-list').prepend('<%=j render @review  %>');
+  // Stretch #2
+  $("#new_review").css("background-color", "yellow");
+  // Stretch #3
+  $('html, body').animate({
+    scrollTop: $("#new_review").offset().top
+  }, 1000);
+
+  console.log(this);
+
+  $("#new_review")[0].reset();
+<% end %>
